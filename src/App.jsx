@@ -1,11 +1,19 @@
 
 import './App.css'
+import Navbar from './components/Navbar'
+import Manager from './components/Manager'
+import Footer from './components/Footer'
 
 function App() {
   
   return (
     <>
-    My ui
+    <Navbar />
+    <div className="min-h-[87vh]">
+      <Manager />
+    </div>
+    
+    <Footer />
     </>
   )
 }
