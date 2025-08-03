@@ -31,16 +31,40 @@ const Manager = () => {
     }
 
     const savePassword = () => {
+        if(form.site.length > 3 && form.username.length > 3 && form.password.length > 3){
         setPasswordArray([...passwordArray, {...form, id: uuidv4()}])
         localStorage.setItem("passwords", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
         console.log([...passwordArray, form])
         setform({site:"", username:"", password:""})
+        toast('Password Saved!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
+    }else{
+        toast('Error: Password not saved!')
+    }
     }
 
     const deletePassword = (id) => {
         console.log("Deleting password with id ", id)
         setPasswordArray(passwordArray.filter(item=>item.id!==id))
         localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id !== id)))
+        toast('Password Deleted!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const editPassword = (id) => {
@@ -62,7 +86,7 @@ const Manager = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
         });
         navigator.clipboard.writeText(text)
     }
@@ -85,7 +109,7 @@ const Manager = () => {
             />
             <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-green-400 opacity-20 blur-[100px]"></div></div>
 
-            <div className=" mycontainer">
+            <div className="p-2 md:p-0 md:mycontainer">
                 <h1 className="text-4xl text font-bold text-center">
                     <span className="text-green-700">&lt;</span>
 
@@ -96,7 +120,7 @@ const Manager = () => {
                 <p className="text-green-900 text-lg text-center">Your own Password Manager</p>
                 <div className=" flex flex-col p-4 text-black gap-8 items-center">
                     <input value={form.site} onChange={handleChange} placeholder="Enter Website URL" className="rounded-full border border-green-500 w-full p-4 py-1" type="text" name="site" id="site" />
-                    <div className="flex w-full justify-between gap-8">
+                    <div className="flex flex-col md:flex-row w-full justify-between gap-8">
                         <input value={form.username} onChange={handleChange} placeholder="Enter Username" className='rounded-full border border-green-500 w-full p-4 py-1' type="text" name="username" id="username" />
 
                         <div className="relative">
